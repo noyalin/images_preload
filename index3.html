@@ -32,6 +32,7 @@
 
 
     </style>
+
 </head>
 <body>
 <div class="box">
@@ -42,6 +43,7 @@
     </p>
 </div>
 <script src="js/jquery-3.1.1.js"></script>
+<script src="js/preload.js"></script>
 <script>
     $().ready(function () {
         var imgs = [
@@ -52,30 +54,11 @@
             'img/manhua/m_5.png'
         ];
         var len = imgs.length,
-            count = 0,
             index = 0;
-        load();
-        //有序预加载
-        function load() {
-            console.log("load()开始");
-            var imgObj = new Image();
-            console.log("new");
-            $(imgObj).on('load error', function () {
-                console.log("加载了一张");
-                count++;
-                console.log("count:+"+count);
 
-                if (count >= len) {//所有图片完成加载
-                    //所有图片加载完
-                } else {
-                    load();
-                }
-                //count++;
-
-            });
-            imgObj.src = imgs[count];
-            console.log(imgObj.src);
-        }
+        $.preload(imgs,{
+            order:'ordered'
+        });
 
         $('.btn').on('click', function (e) {
             //e.stopPropagation();

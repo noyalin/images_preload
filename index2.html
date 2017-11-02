@@ -88,6 +88,7 @@
         e.stopPropagation();//禁止冒泡
         $panel.show();
         $.preload(imgs, {
+            order:'ordered',
             all: function () {
                 var html = '';
                 html += '<ul class="list">';
@@ -98,8 +99,6 @@
                 setTimeout(function () {//因为图片在本地太快了，所以设置了1s延迟
                     $panel.html(html);
                 },1000);
-
-
             }
         })
     });

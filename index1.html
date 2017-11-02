@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>图片预加载之无序加载</title>
+    <title>图片预加载-无序加载</title>
     <style>
         html, body {
             height: 100%;
@@ -121,6 +121,7 @@
             $progress = $('.progress');
 
         $.preload(imgs,{
+            order:'unordered',
             each:function (count) {
                 $progress.html(Math.round((count + 1) / len * 100) + '%');
             },
