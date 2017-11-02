@@ -46,6 +46,7 @@
         .progress {
             margin-top: 300px;
         }
+
     </style>
 
 
@@ -138,11 +139,13 @@
                  */
                 //更好的写法
                 index = Math.max(0, --index);
+
             } else {//下一张
                 index = Math.min(len - 1, ++index);
             }
             document.title = (index + 1) + '/' + len;
             $('#img').attr('src', imgs[index]);
+
         })
     })
 

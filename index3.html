@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片预加载-有序加载</title>
+    <style>
+
+
+        a {
+            text-decoration: none;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 0 10px;
+            margin-right: 50px;
+            color: #333;
+        }
+
+        .btn:hover {
+            background: #eee;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="img/manhua/m_1.png" alt="pic" id="img">
+    <p>
+        <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+        <a href="javascript:;" class="btn" data-control="next">下一页</a>
+    </p>
+</div>
+<script src="js/jquery-3.1.1.js"></script>
+<script>
+    $().ready(function () {
+        var imgs = [
+            'img/manhua/m_1.png',
+            'img/manhua/m_2.png',
+            'img/manhua/m_3.png',
+            'img/manhua/m_4.png',
+            'img/manhua/m_5.png'
+        ];
+        var len = imgs.length,
+            count = 0,
+            index = 0;
+        load();
+        //有序预加载
+        function load() {
+            console.log("load()开始");
+            var imgObj = new Image();
+            console.log("new");
+            $(imgObj).on('load error', function () {
+                console.log("加载了一张");
+                count++;
+                console.log("count:+"+count);
+
+                if (count >= len) {//所有图片完成加载
+                    //所有图片加载完
+                } else {
+                    load();
+                }
+                //count++;
+
+            });
+            imgObj.src = imgs[count];
+            console.log(imgObj.src);
+        }
+
+        $('.btn').on('click', function (e) {
+            //e.stopPropagation();
+            //data('control')=$(this).attr('data-control')
+            if ('prev' === $(this).data('control')) {//上一张
+                /*
+                 index--;
+                 if(index<0) index=0;
+                 */
+                //更好的写法
+                index = Math.max(0, --index);
+
+            } else {//下一张
+                index = Math.min(len - 1, ++index);
+            }
+            document.title = (index + 1) + '/' + len;
+            $('#img').attr('src', imgs[index]);
+
+        })
+    })
+</script>
+</body>
+</html>
